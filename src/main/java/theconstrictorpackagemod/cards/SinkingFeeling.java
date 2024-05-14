@@ -28,21 +28,30 @@ public class SinkingFeeling extends BaseCard {
 
     public SinkingFeeling() {
         super(cardInfo);
-        setMagic(2, 1);
+        setMagic(2);
         GraveField.grave.set(this, true);
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         Iterator<AbstractMonster> var3 = AbstractDungeon.getCurrRoom().monsters.monsters.iterator();
+        int baseDamage = 0; // This is a new base damage, adjust as needed for balance.
 
         while (var3.hasNext()) {
             AbstractMonster mo = var3.next();
+            int totalDamage = baseDamage;
+
             if (mo.hasPower(ConstrictingPower.POWER_ID)) {
                 int constrictAmount = mo.getPower(ConstrictingPower.POWER_ID).amount;
-                int damage = constrictAmount * 2;
-                this.addToBot(new DamageAction(mo, new DamageInfo(p, damage, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+                totalDamage += constrictAmount * this.magicNumber; // Add the damage based on Constricting.
             }
+
+            // Create a temporary DamageInfo object for modifying the damage based on player's buffs/debuffs.
+            DamageInfo info = new DamageInfo(p, totalDamage, DamageInfo.DamageType.NORMAL);
+            info.applyPowers(p, mo); // This method adjusts the damage based on player and monster powers.
+
+            // Now use the possibly modified damage from the info object
+            this.addToBot(new DamageAction(mo, info, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         }
     }
 
