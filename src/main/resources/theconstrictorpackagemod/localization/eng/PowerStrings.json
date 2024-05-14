@@ -34,7 +34,7 @@
     "NAME": "Rising Water",
     "DESCRIPTIONS": [
       "At the end of your turn, deal #b",
-      " damage to ALL enemies, then increase #yRising #yWater by #b1."
+      " damage to ALL enemies, then increase Rising Water by #b1."
     ]
   },
   "${modID}:LoadOffPower": {
