@@ -265,7 +265,7 @@
   },
   "${modID}:IntoIt": {
     "NAME": "Into It",
-    "DESCRIPTION": "Gain 3 Block. NL If your theconstrictor:Constricting is positive, gain !M! additional Block."
+    "DESCRIPTION": "Gain !B! Block. NL If your theconstrictor:Constricting is positive, gain !M! additional Block."
   },
   "${modID}:SecretCash": {
     "NAME": "Secret Cache",

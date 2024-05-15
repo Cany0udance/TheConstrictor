@@ -19,7 +19,7 @@ import static theconstrictorpackagemod.theconstrictormod.makeID;
 public class IntoIt extends BaseCard {
     private final static CardInfo cardInfo = new CardInfo(
             "IntoIt",
-            1,
+            0,
             CardType.SKILL,
             CardTarget.SELF,
             CardRarity.COMMON,
@@ -30,48 +30,27 @@ public class IntoIt extends BaseCard {
     public IntoIt() {
         super(cardInfo);
         this.baseBlock = 3;
-        this.baseMagicNumber = (9);
+        this.baseMagicNumber = 9;
         this.magicNumber = this.baseMagicNumber;
     }
 
+    @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new GainBlockAction(p,p,this.block));
+        this.applyPowers();
+        this.addToBot(new IntoItAction(p, this.block, this.magicNumber));
     }
+
+    @Override
     public void applyPowers() {
-        AbstractPower ConPower = AbstractDungeon.player.getPower(ConstrictingPower.POWER_ID);
-        int Block = this.baseBlock;
-        if (ConPower != null) {
-            if (ConPower.amount > 0) {
-                this.baseBlock = this.magicNumber;
-            }
-
-
-        }
         super.applyPowers();
-        this.baseBlock = Block;
-        this.isBlockModified = this.baseBlock != this.block;
+        this.isBlockModified = (this.block != this.baseBlock);
     }
 
-    public void calculateCardDamage(AbstractMonster mo) {
-        AbstractPower ConPower = AbstractDungeon.player.getPower(ConstrictingPower.POWER_ID);
-        int Block = this.baseBlock;
-        if (ConPower != null) {
-            if (ConPower.amount > 0) {
-                this.baseBlock = this.magicNumber;
-            }
-
-
-        }
-        super.calculateCardDamage(mo);
-        this.baseBlock = Block;
-        this.isBlockModified = this.baseBlock != this.block;
-    }
-
+    @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
             this.upgradeMagicNumber(3);
         }
-
     }
 }
