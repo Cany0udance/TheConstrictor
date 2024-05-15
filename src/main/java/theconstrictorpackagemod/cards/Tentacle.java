@@ -25,14 +25,14 @@ public class Tentacle extends BaseCard {
 
     public static final String ID = makeID(cardInfo.baseId);
 
-    private static final int DAMAGE = 5;
+    private static final int DAMAGE = 7;
     private static final int UPG_DAMAGE = 2;
 
 
     public Tentacle() {
         super(cardInfo);
         setDamage(DAMAGE, UPG_DAMAGE);
-        setMagic(2,1);
+        setMagic(1,1);
         setExhaust(true);
     }
 
