@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.VerticalImpactEffect;
+import theconstrictorpackagemod.actions.IntoItAction;
 import theconstrictorpackagemod.powers.ConstrictingPower;
 import theconstrictorpackagemod.util.CardInfo;
 
