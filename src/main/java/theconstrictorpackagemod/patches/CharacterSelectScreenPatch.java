@@ -24,7 +24,7 @@ import static theconstrictorpackagemod.theconstrictormod.makeID;
 
 public class CharacterSelectScreenPatch {
 
-    private static final String[] SKIN_OPTIONS = {"Default", "AVGN", "Frost", "The \"Adventurer\"", "Robot Space Explorer"};
+    private static final String[] SKIN_OPTIONS = {"Default", "AVGN", "Frost", "The \"Adventurer\"", "The \"Packmaster\"", "Robot Space Explorer"};
 
 
     @SpirePatch(clz = CharacterSelectScreen.class, method = SpirePatch.CLASS)

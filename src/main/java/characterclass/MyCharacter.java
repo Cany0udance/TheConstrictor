@@ -204,11 +204,11 @@ public class MyCharacter extends CustomPlayer {
     }
     @Override
     public String getSpireHeartText() {
-        return TEXT[1];
+        return TEXT[6];
     }
     @Override
     public String getVampireText() {
-        return TEXT[2]; //Generally, the only difference in this text is how the vampires refer to the player.
+        return TEXT[7]; //Generally, the only difference in this text is how the vampires refer to the player.
     }
 
     /*- You shouldn't need to edit any of the following methods. -*/

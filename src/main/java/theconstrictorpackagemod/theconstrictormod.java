@@ -78,7 +78,7 @@ public class theconstrictormod implements
     public static String getCharSelectPortrait() {
         return characterPath("select/Portrait_" + getSkinIndex() + ".png");
     }
-    private static final String[] SKIN_OPTIONS = {"Default", "AVGN", "Frost", "The \"Adventurer\"", "Robot Space Explorer"};
+    private static final String[] SKIN_OPTIONS = {"Default", "AVGN", "Frost", "The \"Adventurer\"", "The \"Packmaster\"", "Robot Space Explorer"};
 
 
     //This is used to prefix the IDs of various objects like cards and relics,
