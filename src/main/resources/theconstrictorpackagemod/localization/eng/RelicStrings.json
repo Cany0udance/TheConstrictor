@@ -68,5 +68,12 @@
     "DESCRIPTIONS": [
       "At the start of each combat, draw #b1 additional card and heal #b3 HP."
     ]
+  },
+  "${modID}:BorrowedSkull": {
+    "NAME": "Borrowed Skull",
+    "FLAVOR": "Extra lethal constricting to deal with those pesky enemies.",
+    "DESCRIPTIONS": [
+      "#ytheconstrictor:Constricting now affects enemies at the start of their turn rather than at the end of it."
+    ]
   }
 }
