@@ -22,12 +22,11 @@ public class FishyShield extends BaseCard {
     public static final String ID = makeID(cardInfo.baseId);
 
 
-    private static final int BLOCK = 2;
-    private static final int UPG_BLOCK = 2;
+    private static final int BLOCK = 4;
 
     public FishyShield() {
         super(cardInfo);
-        setBlock(BLOCK, UPG_BLOCK);
+        setBlock(BLOCK);
         this.cardsToPreview = new DustyShiv();
         setMagic(1,1);
     }

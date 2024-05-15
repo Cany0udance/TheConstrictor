@@ -21,7 +21,7 @@ public class BlockyBlock extends BaseCard {
     public static final String ID = makeID(cardInfo.baseId);
 
 
-    private static final int BLOCK = 9;
+    private static final int BLOCK = 10;
     private static final int UPG_BLOCK = 3;
 
     public BlockyBlock() {

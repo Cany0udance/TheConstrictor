@@ -23,12 +23,9 @@ public class LoadOff extends BaseCard {
 
     public static final String ID = makeID(cardInfo.baseId);
 
-
-
-
     public LoadOff() {
         super(cardInfo);
-        setMagic(6,2);
+        setMagic(4,2);
     }
 
     @Override
