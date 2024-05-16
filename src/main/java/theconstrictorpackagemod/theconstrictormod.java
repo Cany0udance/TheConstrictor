@@ -4,8 +4,14 @@ import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.interfaces.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import theconstrictorpackagemod.cards.BaseCard;
+import theconstrictorpackagemod.powers.NextCombatBlockPower;
 import theconstrictorpackagemod.relics.BaseRelic;
 import theconstrictorpackagemod.util.GeneralUtils;
 import theconstrictorpackagemod.util.KeywordInfo;
@@ -41,7 +47,10 @@ public class theconstrictormod implements
         EditCharactersSubscriber,
         EditKeywordsSubscriber,
         PostInitializeSubscriber,
-        EditCardsSubscriber {
+        EditCardsSubscriber,
+        OnStartBattleSubscriber,
+        PostBattleSubscriber,
+        StartGameSubscriber {
     public static ModInfo info;
     public static String modID;
 
@@ -69,6 +78,7 @@ public class theconstrictormod implements
         return characterPath("select/Portrait_" + getSkinIndex() + ".png");
     }
     private static final String[] SKIN_OPTIONS = {"Default", "AVGN", "Frost", "The \"Adventurer\"", "The \"Packmaster\"", "\"Robot Space Explorer\""};
+    public static int nextCombatBlock = 0;
 
 
     //This is used to prefix the IDs of various objects like cards and relics,
@@ -227,6 +237,29 @@ public class theconstrictormod implements
             {
                 logger.warn(modID + " does not support " + getLangString() + " keywords.");
             }
+        }
+    }
+
+    public void receivePostBattle(AbstractRoom abstractRoom) {
+        AbstractPlayer p = AbstractDungeon.player;
+        if (p.hasPower(NextCombatBlockPower.POWER_ID)) {
+            nextCombatBlock = p.getPower(NextCombatBlockPower.POWER_ID).amount;
+        }
+    }
+
+    public void receiveOnBattleStart(AbstractRoom abstractRoom) {
+        if (nextCombatBlock > 0) {
+            AbstractPlayer p = AbstractDungeon.player;
+            AbstractDungeon.actionManager.addToBottom(new GainBlockAction(p, p, nextCombatBlock));
+            nextCombatBlock = 0; // Reset the block amount for the next combat
+        }
+    }
+
+
+    @Override
+    public void receiveStartGame() {
+        if (!CardCrawlGame.loadingSave) {
+            nextCombatBlock = 0;
         }
     }
 

@@ -57,5 +57,12 @@
       "Whenever you gain #yRising #yWater, gain #b",
       " more."
     ]
+  },
+  "${modID}:NextCombatBlockPower": {
+    "NAME": "Next Combat Block",
+    "DESCRIPTIONS": [
+      "At the start of next combat, gain #b",
+      " Block."
+    ]
   }
 }

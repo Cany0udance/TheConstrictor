@@ -49,8 +49,6 @@ public class RisingWater extends BasePower implements CloneablePowerInterface {
         this.description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1];
     }
 
-
-    //Optional, for CloneablePowerInterface.
     @Override
     public AbstractPower makeCopy() {
         return new RisingWater(owner, amount);

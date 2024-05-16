@@ -330,7 +330,7 @@
   },
   "${modID}:AnchorTime": {
     "NAME": "Anchor Time",
-    "DESCRIPTION": "Gain 4 theconstrictor:Constricting. NL Reduce the cost of all cards in your hand to 0 this turn."
+    "DESCRIPTION": "At the start of next combat, gain !M! Block."
   },
   "${modID}:BreakFree": {
     "NAME": "Break Free",
