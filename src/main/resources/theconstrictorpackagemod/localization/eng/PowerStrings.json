@@ -61,8 +61,8 @@
   "${modID}:NextCombatBlockPower": {
     "NAME": "Next Combat Block",
     "DESCRIPTIONS": [
-      "At the start of next combat, gain #b",
-      " Block."
+      "Gain #b",
+      " #yBlock at the start of next combat."
     ]
   }
 }
