@@ -22,7 +22,7 @@
   "${modID}:CHOKED_OUT": {
     "TEXT": [
       "Choked Out",
-      "As the Constrictor, defeat an Act 3 boss while you have at least 50 Constricting."
+      "As the Constrictor, defeat an Act 3 boss while you have at least 30 Constricting."
     ]
   },
   "${modID}:I_AM_THE_TIDE": {

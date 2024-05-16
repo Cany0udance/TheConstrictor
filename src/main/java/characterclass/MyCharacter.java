@@ -249,7 +249,7 @@ public class MyCharacter extends CustomPlayer {
             // Check for the Constricting power on the player
             AbstractPower constrictingPower = AbstractDungeon.player.getPower(ConstrictingPower.POWER_ID);
 
-            if (constrictingPower != null && constrictingPower.amount >= 50) {
+            if (constrictingPower != null && constrictingPower.amount >= 30) {
                 ConstrictorAchievementUnlocker.unlockAchievement(theconstrictorpackagemod.theconstrictormod.makeID("CHOKED_OUT"));
             }
         }
