@@ -241,20 +241,6 @@ public class MyCharacter extends CustomPlayer {
         return panels;// 316
     }
 
-
-    public void onVictory() {
-        // Check if it's an Act 3 boss combat
-        if (AbstractDungeon.currMapNode != null && AbstractDungeon.currMapNode.getRoom() instanceof MonsterRoomBoss && AbstractDungeon.actNum == 3) {
-
-            // Check for the Constricting power on the player
-            AbstractPower constrictingPower = AbstractDungeon.player.getPower(ConstrictingPower.POWER_ID);
-
-            if (constrictingPower != null && constrictingPower.amount >= 30) {
-                ConstrictorAchievementUnlocker.unlockAchievement(theconstrictorpackagemod.theconstrictormod.makeID("CHOKED_OUT"));
-            }
-        }
-    }
-
     @Override
     public AbstractPlayer newInstance() {
         //Makes a new instance of your character class.

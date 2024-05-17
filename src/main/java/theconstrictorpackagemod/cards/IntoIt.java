@@ -43,8 +43,11 @@ public class IntoIt extends BaseCard {
 
     @Override
     public void applyPowers() {
+        int baseMagic = this.baseMagicNumber;
         super.applyPowers();
-        this.isBlockModified = (this.block != this.baseBlock);
+        int blockDiff = this.baseMagicNumber - this.baseBlock;
+        this.magicNumber = this.block + blockDiff;
+        this.isMagicNumberModified = this.magicNumber != baseMagic;
     }
 
     @Override

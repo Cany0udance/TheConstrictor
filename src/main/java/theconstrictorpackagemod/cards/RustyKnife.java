@@ -1,6 +1,7 @@
 package theconstrictorpackagemod.cards;
 
 import com.megacrit.cardcrawl.actions.unique.RitualDaggerAction;
+import com.megacrit.cardcrawl.cards.colorless.RitualDagger;
 import theconstrictorpackagemod.util.CardInfo;
 import characterclass.MyCharacter;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -9,6 +10,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import theconstrictorpackagemod.util.ritualfix;
 
 import static theconstrictorpackagemod.theconstrictormod.makeID;
 
@@ -22,7 +24,6 @@ public class RustyKnife extends BaseCard {
             MyCharacter.Enums.CARD_COLOR);
 
     public static final String ID = makeID(cardInfo.baseId);
-
 
     public RustyKnife() {
         super(cardInfo);
@@ -51,6 +52,4 @@ public class RustyKnife extends BaseCard {
         }
 
     }
-
-
 }

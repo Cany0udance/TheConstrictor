@@ -161,7 +161,7 @@
   },
   "${modID}:FadedSeal": {
     "NAME": "Faded Seal",
-    "DESCRIPTION": "Retain. NL Unplayable. NL If this card is Exhausted, gain !B! Block."
+    "DESCRIPTION": "On play or Exhaust, gain !B! Block."
   },
   "${modID}:LoadOff": {
     "NAME": "Load Off",
@@ -169,8 +169,8 @@
   },
   "${modID}:Headache": {
     "NAME": "Headache",
-    "DESCRIPTION": "Unplayable. NL If this card is Exhausted, add a *Shining *Light into your hand.",
-    "UPGRADE_DESCRIPTION": "Unplayable. NL Retain. NL If this card is Exhausted, add a *Shining *Light into your hand."
+    "DESCRIPTION": "Unplayable. Ethereal. NL When you play another card while this is in hand, gain !M! theconstrictor:Constricting and !B! Block.",
+    "EXTENDED_DESCRIPTION": ["I can't play this card."]
   },
   "${modID}:StickyPenny": {
     "NAME": "Sticky Penny",

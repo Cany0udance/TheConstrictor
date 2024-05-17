@@ -14,24 +14,21 @@ public class FadedSeal extends BaseCard {
 
     public FadedSeal() {
         super(cardInfo);
-        this.setBlock(10, 3);
-        this.retain = true;
-    }
-
-    public boolean canUse(AbstractPlayer p, AbstractMonster m) {
-        this.cantUseMessage = "This card is unplayable!";
-        return false;
+        this.cost = 1; // Set cost to 1
+        this.setBlock(9, 3); // Set block to 9 (upgraded by 3)
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        this.addToBot(new GainBlockAction(p, p, this.block)); // Gain block when played
     }
 
     public void triggerOnExhaust() {
-        this.addToBot(new GainBlockAction(AbstractDungeon.player, AbstractDungeon.player, this.block));
+        this.addToBot(new GainBlockAction(AbstractDungeon.player, AbstractDungeon.player, this.block)); // Gain block when exhausted
     }
 
     static {
-        cardInfo = new CardInfo("FadedSeal", -2, CardType.SKILL, CardTarget.SELF, CardRarity.UNCOMMON, MyCharacter.Enums.CARD_COLOR);
+        cardInfo = new CardInfo("FadedSeal", 1, CardType.SKILL, CardTarget.SELF, CardRarity.UNCOMMON, MyCharacter.Enums.CARD_COLOR);
         ID = theconstrictormod.makeID(cardInfo.baseId);
     }
 }
+

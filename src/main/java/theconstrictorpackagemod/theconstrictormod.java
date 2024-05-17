@@ -8,11 +8,15 @@ import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import theconstrictorpackagemod.cards.BaseCard;
+import theconstrictorpackagemod.powers.ConstrictingPower;
 import theconstrictorpackagemod.powers.NextCombatBlockPower;
 import theconstrictorpackagemod.relics.BaseRelic;
+import theconstrictorpackagemod.util.ConstrictorAchievementUnlocker;
 import theconstrictorpackagemod.util.GeneralUtils;
 import theconstrictorpackagemod.util.KeywordInfo;
 import theconstrictorpackagemod.util.TextureLoader;
@@ -244,6 +248,15 @@ public class theconstrictormod implements
         AbstractPlayer p = AbstractDungeon.player;
         if (p.hasPower(NextCombatBlockPower.POWER_ID)) {
             nextCombatBlock = p.getPower(NextCombatBlockPower.POWER_ID).amount;
+        }
+        if (AbstractDungeon.currMapNode != null && p instanceof MyCharacter && AbstractDungeon.currMapNode.getRoom() instanceof MonsterRoomBoss && AbstractDungeon.actNum == 3) {
+
+            // Check for the Constricting power on the player
+            AbstractPower constrictingPower = AbstractDungeon.player.getPower(ConstrictingPower.POWER_ID);
+
+            if (constrictingPower != null && constrictingPower.amount >= 30) {
+                ConstrictorAchievementUnlocker.unlockAchievement(theconstrictorpackagemod.theconstrictormod.makeID("CHOKED_OUT"));
+            }
         }
     }
 
