@@ -31,4 +31,3 @@ public class FadedSeal extends BaseCard {
         ID = theconstrictormod.makeID(cardInfo.baseId);
     }
 }
-
