@@ -1,14 +1,10 @@
 package characterclass;
 
-import basemod.BaseMod;
 import basemod.abstracts.CustomEnergyOrb;
 import basemod.abstracts.CustomPlayer;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import theconstrictorpackagemod.cards.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,10 +21,8 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
-import theconstrictorpackagemod.powers.ConstrictingPower;
 import theconstrictorpackagemod.relics.DustyRelic;
 import theconstrictorpackagemod.theconstrictormod;
-import theconstrictorpackagemod.util.ConstrictorAchievementUnlocker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +129,7 @@ public class MyCharacter extends CustomPlayer {
     public AbstractCard getStartCardForEvent() {
         //This card is used for the Gremlin card matching game.
         //It should be a non-strike non-defend starter card, but it doesn't have to be.
-        return new MyCard2();
+        return new SinkingFeeling();
     }
 
     /*- Below this is methods that you should *probably* adjust, but don't have to. -*/
