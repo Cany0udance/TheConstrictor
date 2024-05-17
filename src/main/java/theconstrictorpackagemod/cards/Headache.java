@@ -1,6 +1,4 @@
-
 package theconstrictorpackagemod.cards;
-
 
 import characterclass.MyCharacter;
 import com.megacrit.cardcrawl.actions.common.*;
