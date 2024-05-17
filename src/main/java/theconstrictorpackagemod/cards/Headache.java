@@ -36,11 +36,11 @@ public class Headache extends BaseCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new MakeTempCardInHandAction(new LastGasp(), 1));
+        this.addToBot(new MakeTempCardInHandAction(new ShiningLight(), 1));
     }
 
     public void triggerOnExhaust() {
-            this.addToBot(new MakeTempCardInHandAction(new LastGasp(), 1));
+            this.addToBot(new MakeTempCardInHandAction(new ShiningLight(), 1));
         }
 
     }
