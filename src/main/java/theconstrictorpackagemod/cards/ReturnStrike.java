@@ -25,14 +25,14 @@ public class ReturnStrike extends BaseCard {
 
     public static final String ID = makeID(cardInfo.baseId);
 
-    private static final int DAMAGE = 9;
+    private static final int DAMAGE = 15;
 
 
     public ReturnStrike() {
         super(cardInfo);
         tags.add(CardTags.STRIKE);
         setExhaust(true, false);
-        setDamage(DAMAGE,3);
+        setDamage(DAMAGE,5);
 
     }
 
