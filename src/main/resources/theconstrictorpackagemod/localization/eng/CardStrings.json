@@ -352,5 +352,10 @@
   "${modID}:SinkingFeeling": {
     "NAME": "Sinking Feeling",
     "DESCRIPTION": "ALL enemies lose HP equal to twice their theconstrictor:Constricting. NL Grave."
+  },
+  "${modID}:Rest": {
+    "NAME": "Rest",
+    "DESCRIPTION": "Choose !M! card. Retain it this turn. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Choose !M! cards. Retain them this turn. NL Exhaust."
   }
 }
