@@ -30,5 +30,10 @@
       "I Am The Tide",
       "As the Constrictor, accumulate at least 50 Rising Water."
     ]
+  },
+  "${modID}:AchievementGrid": {
+    "TEXT": [
+      "#yConstrictor #yAchievements"
+    ]
   }
 }

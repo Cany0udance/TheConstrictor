@@ -21,152 +21,135 @@ import java.lang.reflect.Field;
 import static theconstrictorpackagemod.theconstrictormod.makeID;
 
 public class CharacterSelectScreenPatch {
+    private static final float UI_TEXT_SCALE = 0.6f;
+    private static final int UI_MAX_LINE_WIDTH = 450;
+    private static final int UI_LINE_SPACING = 25;
+    private static final int UI_BUTTON_X = 170;
+    private static final int BUTTON_WIDTH = 48;
+    private static final int BUTTON_HEIGHT = 48;
+    private static final float UI_BUTTON_Y = Settings.HEIGHT * 0.35F;
+    private static boolean constrictorWasSelectedLastFrame = false;
+    private static Hitbox leftArrowHitbox;
+    private static Hitbox rightArrowHitbox;
 
     private static final String[] SKIN_OPTIONS = {"Default", "AVGN", "Frost", "The \"Adventurer\"", "The \"Packmaster\"", "\"Robot Space Explorer\""};
 
-
-    @SpirePatch(clz = CharacterSelectScreen.class, method = SpirePatch.CLASS)
-    public static class HitboxFields {
-        public static final SpireField<Hitbox> skinLeftHb = new SpireField<>(() -> null);
-        public static final SpireField<Hitbox> skinRightHb = new SpireField<>(() -> null);
-    }
-
-    @SpirePatch(clz = CharacterSelectScreen.class, method = "initialize")
-    public static class InitializeSkinHitboxPatch {
+    @SpirePatch(clz = CharacterSelectScreen.class, method = "open")
+    public static class OpenPatch {
         @SpirePostfixPatch
-        public static void initializeSkinHitboxes(CharacterSelectScreen __instance) {
-            float textWidth = FontHelper.getSmartWidth(FontHelper.cardTitleFont, "Select Skin:", 9999.0F, 0.0F);
+        public static void Postfix(CharacterSelectScreen __instance) {
+            float centerPointX = Settings.WIDTH * 0.2F;
+            float arrowOffset = 180.0F * Settings.scale;
 
-            // Calculate the center position for the text
-            float centerPointX = Settings.WIDTH * 0.2F; // Central point of the screen
+            leftArrowHitbox = new Hitbox(BUTTON_WIDTH * Settings.scale, BUTTON_HEIGHT * Settings.scale);
+            leftArrowHitbox.move(centerPointX - arrowOffset, UI_BUTTON_Y);
 
-            // Calculate starting X for the text so it's centered at centerPointX
-            float textStartX = centerPointX - (textWidth / 2); // Adjust so text is centered
-
-            float skinHitboxY = Settings.HEIGHT * 0.35F; // Y position of hitboxes
-
-            // Set hitbox positions relative to the centered text
-            float arrowOffset = 100.0F * Settings.scale; // Distance from the center of the text to each arrow
-
-            Hitbox skinLeftHb = new Hitbox(40.0F * Settings.scale, 40.0F * Settings.scale);
-            skinLeftHb.move(textStartX - arrowOffset, skinHitboxY); // Position left arrow to the left of the text
-
-            Hitbox skinRightHb = new Hitbox(40.0F * Settings.scale, 40.0F * Settings.scale);
-            skinRightHb.move(textStartX + textWidth + arrowOffset, skinHitboxY); // Position right arrow to the right of the text
-
-            // Set the hitboxes
-            HitboxFields.skinLeftHb.set(__instance, skinLeftHb);
-            HitboxFields.skinRightHb.set(__instance, skinRightHb);
-
+            rightArrowHitbox = new Hitbox(BUTTON_WIDTH * Settings.scale, BUTTON_HEIGHT * Settings.scale);
+            rightArrowHitbox.move(centerPointX + arrowOffset, UI_BUTTON_Y);
         }
     }
 
     @SpirePatch(clz = CharacterSelectScreen.class, method = "render")
-    public static class RenderSkinSelectionPatch {
+    public static class RenderPatch {
         @SpirePostfixPatch
-        public static void render(CharacterSelectScreen __instance, SpriteBatch sb) {
+        public static void Postfix(CharacterSelectScreen __instance, SpriteBatch sb) {
             for (CharacterOption option : __instance.options) {
-                if (option.selected && option.c != null && option.c instanceof MyCharacter) {
-                    Hitbox skinLeftHb = HitboxFields.skinLeftHb.get(__instance);
-                    Hitbox skinRightHb = HitboxFields.skinRightHb.get(__instance);
+                if (option.selected && option.c instanceof MyCharacter) {
+                    // Calculate text width and center position
+                    float textWidth = FontHelper.getSmartWidth(FontHelper.cardTitleFont, "Select Skin:", 9999.0F, 0.0F);
+                    float centerPointX = Settings.WIDTH * 0.2F;
+                    float textStartX = centerPointX - (textWidth / 2);
 
-                    // Central point for "Select Skin:" text
-                    float centralTextX = (skinLeftHb.cX + skinRightHb.cX) / 2;
+                    // Render arrows
+                    renderArrow(sb, leftArrowHitbox, ImageMaster.CF_LEFT_ARROW);
+                    renderArrow(sb, rightArrowHitbox, ImageMaster.CF_RIGHT_ARROW);
 
-                    // Render "Select Skin:" centrally between the arrows
-                    FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont, "Select Skin:", centralTextX, skinLeftHb.cY + 25.0F * Settings.scale, Settings.GOLD_COLOR);
+                    // Render "Select Skin:" text
+                    FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont, "Select Skin:",
+                            centerPointX, UI_BUTTON_Y + 25.0F * Settings.scale, Settings.GOLD_COLOR);
 
-                    // Central point for "Skin Name" based on screen center, not tied to the left arrow
-                    FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont, SKIN_OPTIONS[theconstrictormod.getSkinIndex()], centralTextX, skinLeftHb.cY - 10.0F * Settings.scale, Settings.BLUE_TEXT_COLOR);
+                    // Render selected skin name
+                    FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont,
+                            SKIN_OPTIONS[theconstrictormod.getSkinIndex()],
+                            centerPointX, UI_BUTTON_Y - 10.0F * Settings.scale, Settings.BLUE_TEXT_COLOR);
 
-                    renderArrow(sb, skinLeftHb, ImageMaster.CF_LEFT_ARROW);
-                    renderArrow(sb, skinRightHb, ImageMaster.CF_RIGHT_ARROW);
-
-                    skinLeftHb.render(sb);
-                    skinRightHb.render(sb);
-                    break; // Exit after finding the selected character
+                    break;
                 }
             }
         }
-    }
 
         private static void renderArrow(SpriteBatch sb, Hitbox hitbox, Texture arrowTexture) {
             Color color = hitbox.hovered ? Color.WHITE : Color.LIGHT_GRAY;
             sb.setColor(color);
-            sb.draw(arrowTexture, hitbox.cX - 24.0F, hitbox.cY - 24.0F, 24.0F, 24.0F, 48.0F, 48.0F, Settings.scale, Settings.scale, 0.0F, 0, 0, 48, 48, false, false);
+            sb.draw(arrowTexture, hitbox.cX - 24.0F, hitbox.cY - 24.0F, 24.0F, 24.0F, 48.0F, 48.0F,
+                    Settings.scale, Settings.scale, 0.0F, 0, 0, 48, 48, false, false);
         }
+    }
+
 
     @SpirePatch(clz = CharacterSelectScreen.class, method = "update")
-    public static class UpdateSkinSelectionPatch {
-        private static boolean wasMyCharacterSelectedLastFrame = false;
-        private static final String ID = makeID("CharacterID");
-        private static final CharacterStrings characterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
-
+    public static class UpdatePatch {
         @SpirePostfixPatch
-        public static void update(CharacterSelectScreen __instance) {
-            boolean isMyCharacterCurrentlySelected = false;
-            boolean skinIndexChanged = false;
-            MyCharacter myChar = null;
+        public static void Postfix(CharacterSelectScreen __instance) {
+            boolean constrictorIsSelectedNow = false;
+            MyCharacter constrictorChar = null;
 
             for (CharacterOption option : __instance.options) {
-                option.update();
-
                 if (option.selected && option.c instanceof MyCharacter) {
-                    isMyCharacterCurrentlySelected = true;
-                    myChar = (MyCharacter) option.c;
-                    Hitbox skinLeftHb = HitboxFields.skinLeftHb.get(__instance);
-                    Hitbox skinRightHb = HitboxFields.skinRightHb.get(__instance);
+                    constrictorIsSelectedNow = true;
+                    constrictorChar = (MyCharacter) option.c;
 
-                    skinLeftHb.update();
-                    skinRightHb.update();
+                    // Update hitboxes
+                    leftArrowHitbox.update();
+                    rightArrowHitbox.update();
 
-                    if (InputHelper.justClickedLeft && skinLeftHb.hovered) {
-                        skinLeftHb.clickStarted = true;
-                        if (skinLeftHb.clicked) {
-                            skinLeftHb.clicked = false;
-                            theconstrictormod.decrementSkinIndex(myChar);
-                            skinIndexChanged = true;
-                        }
+                    // Handle arrow clicks
+                    if (leftArrowHitbox.hovered && InputHelper.justClickedLeft) {
+                        theconstrictormod.decrementSkinIndex(constrictorChar);
+                        updateCharacterPortrait(__instance, constrictorChar);
                     }
 
-                    if (InputHelper.justClickedLeft && skinRightHb.hovered) {
-                        skinRightHb.clickStarted = true;
-                        if (skinRightHb.clicked) {
-                            skinRightHb.clicked = false;
-                            theconstrictormod.incrementSkinIndex(myChar);
-                            skinIndexChanged = true;
-                        }
+                    if (rightArrowHitbox.hovered && InputHelper.justClickedLeft) {
+                        theconstrictormod.incrementSkinIndex(constrictorChar);
+                        updateCharacterPortrait(__instance, constrictorChar);
                     }
 
-                    // Ensure to update immediately if not selected last frame or if the skin changed
-                    if (!wasMyCharacterSelectedLastFrame || skinIndexChanged) {
-                        if (__instance.bgCharImg != null) {
-                            __instance.bgCharImg.dispose();
-                        }
-                        __instance.bgCharImg = ImageMaster.loadImage(theconstrictormod.getCharSelectPortrait());
-                        myChar.updateCharacterSkin(theconstrictormod.getSkinIndex());
-
-                        // Update flavor text using reflection
-                        for (CharacterOption optionToUpdate : __instance.options) {
-                            if (optionToUpdate.c == myChar) {
-                                try {
-                                    Field flavorTextField = CharacterOption.class.getDeclaredField("flavorText");
-                                    flavorTextField.setAccessible(true);
-                                    flavorTextField.set(optionToUpdate, characterStrings.TEXT[theconstrictormod.getSkinIndex()]);
-                                } catch (NoSuchFieldException | IllegalAccessException e) {
-                                    e.printStackTrace();
-                                }
-                                break;
-                            }
-                        }
-                    }
-
-                    break; // Exit after finding the selected character
+                    break;
                 }
             }
 
-            // Update the static tracking variable at the end of the update cycle
-            wasMyCharacterSelectedLastFrame = isMyCharacterCurrentlySelected;
+            // Check if The Constrictor was just selected
+            if (constrictorIsSelectedNow && !constrictorWasSelectedLastFrame) {
+                // Force update the portrait
+                theconstrictormod.incrementSkinIndex(constrictorChar);
+                updateCharacterPortrait(__instance, constrictorChar);
+                theconstrictormod.decrementSkinIndex(constrictorChar);
+                updateCharacterPortrait(__instance, constrictorChar);
+            }
+
+            constrictorWasSelectedLastFrame = constrictorIsSelectedNow;
+        }
+    }
+
+    private static void updateCharacterPortrait(CharacterSelectScreen __instance, MyCharacter myChar) {
+        if (__instance.bgCharImg != null) {
+            __instance.bgCharImg.dispose();
+        }
+        __instance.bgCharImg = ImageMaster.loadImage(theconstrictormod.getCharSelectPortrait());
+        myChar.updateCharacterSkin(theconstrictormod.getSkinIndex());
+
+        // Update flavor text
+        for (CharacterOption optionToUpdate : __instance.options) {
+            if (optionToUpdate.c == myChar) {
+                try {
+                    Field flavorTextField = CharacterOption.class.getDeclaredField("flavorText");
+                    flavorTextField.setAccessible(true);
+                    flavorTextField.set(optionToUpdate, CardCrawlGame.languagePack.getCharacterString(makeID("CharacterID")).TEXT[theconstrictormod.getSkinIndex()]);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import theconstrictorpackagemod.achievements.ConstrictorAchievementGrid;
 import theconstrictorpackagemod.cards.BaseCard;
 import theconstrictorpackagemod.powers.ConstrictingPower;
 import theconstrictorpackagemod.powers.NextCombatBlockPower;
@@ -83,6 +84,7 @@ public class theconstrictormod implements
     }
     private static final String[] SKIN_OPTIONS = {"Default", "AVGN", "Frost", "The \"Adventurer\"", "The \"Packmaster\"", "\"Robot Space Explorer\""};
     public static int nextCombatBlock = 0;
+    public static ConstrictorAchievementGrid constrictorAchievementGrid;
 
 
     //This is used to prefix the IDs of various objects like cards and relics,
@@ -167,6 +169,7 @@ public class theconstrictormod implements
         //Set up the mod information displayed in the in-game mods menu.
         //The information used is taken from your pom.xml file.
         BaseMod.registerModBadge(badgeTexture, info.Name, GeneralUtils.arrToString(info.Authors), info.Description, null);
+        constrictorAchievementGrid = new ConstrictorAchievementGrid();
     }
 
     /*----------Localization----------*/

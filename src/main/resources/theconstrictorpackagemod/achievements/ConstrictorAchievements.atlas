@@ -3,42 +3,42 @@ size: 640,640
 format: RGB888
 filter: Linear,Linear
 repeat: none
-locked/constrictormastery
+locked/CONSTRICTOR_MASTERY
   rotate: false
   xy: 0, 0
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-unlocked/constrictormastery
+unlocked/CONSTRICTOR_MASTERY
   rotate: false
   xy: 160, 0
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-locked/chokedout
+locked/CHOKED_OUT
   rotate: false
   xy: 320, 0
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-unlocked/chokedout
+unlocked/CHOKED_OUT
   rotate: false
   xy: 480, 0
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-locked/iamthetide
+locked/I_AM_THE_TIDE
   rotate: false
   xy: 0, 160
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-unlocked/iamthetide
+unlocked/I_AM_THE_TIDE
   rotate: false
   xy: 160, 160
   size: 160, 160
